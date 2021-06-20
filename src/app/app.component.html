@@ -1,151 +1,60 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<div class="body">
+  <!-- Toolbar -->
+  <div class="toolbar" role="banner">
+    <div class="title">
+      <img class="title__logo" alt="Logo" src="assets/img/weather.png" />
+      <div class="title__heading">Weather 9</div>
+    </div>
+    <div class="search">
+      <input type="text" class="search__input" id="one" />
+      <button class="search__btn" (click)="TrySearch()"><img sizes="12" src="assets/img/loupe.png" alt=""></button>
+    </div>
+  </div>
 
-<style>
-  :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 8px 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  .spacer {
-    flex: 1;
-  }
-  .card {
-  /* Add shadows to create the "card" effect */
-   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-   transition: 0.3s;
-   border-radius: 5px;
-   /*background-image: url("../assets/img/depositphotos_7164275-stock-illustration-summer.jpg");*/
-   background-size: 500px;
-   background-repeat: no-repeat;
-   height: 9cm;
-   width: 7cm;
-   text-align: center;
-   align-content: center;
-  }
-  
-  img {
-   border-radius: 5px 5px 0 0;
-  }
-  .card:hover {
-   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
-  .container {
-    padding: 2px 16px;
-    background-color:#fff; 
-  }
-
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-  }
-
-  .toolbar img {
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo {
-    height: 40px;
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo:hover {
-    opacity: 0.8;
-  }
-
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 960px;
-    flex-direction: column;
-    align-items: center;
-  } 
-</style>
-
-<!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <img
-    width="40"
-    alt="Angular Logo"
-    src="assets/img/weather.png"
-  />
-  <span>Weather</span>
-    <div class="spacer"></div>
+  <!-- Content -->
+  <div class="content" role="main">
+    <div class="box">
+      <div class="date">{{digit}}, {{month}} {{year}}</div>
+      <div class="location">
+        <img class="location__logo" src="assets/img/location.svg" alt="">
+        <div class="location__city">{{city}},</div>
+        <div class="location__country">{{country}}</div>
+      </div>
+      <img class="world" src="assets/img/world.svg" alt="">
+      <img class="weather-icon" id="w_icon" src="assets/img/12.png" alt="">
+      <div class="weather">
+        <div class="weather__condition">{{condition}}</div>
+        <div class="weather__temperature">{{temperature}}&deg;</div>
+        <div class="weather__detail">
+          <div class="row">
+            <div class="cell">
+              <img class="cell__svg" src="assets/img/humidity.svg" alt="">
+              <div class="cell__value">{{humidity}}</div>
+              <div class="cell__title">Humidity</div>
+            </div>
+            <div class="cell">
+              <img class="cell__svg" src="assets/img/wind.svg" alt="">
+              <div class="cell__value">{{wind}}</div>
+              <div class="cell__title">Wind Speed</div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px;">
+            <div class="cell">
+              <img class="cell__svg" src="assets/img/pressure.svg" alt="">
+              <div class="cell__value">{{pressure}}</div>
+              <div class="cell__title">Pressure</div>
+            </div>
+            <div class="cell">
+              <img class="cell__svg" src="assets/img/visiblity.svg" alt="">
+              <div class="cell__value">{{visibility}}</div>
+              <div class="cell__title">Visiblity</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<div class="content" role="main">
-<table>
-  <tr>
-    <td> City Name</td>
-    <td><input type="text" id="one"></td>
-  </tr>
-</table>
-<input type="button" id="btn" value="Search" (click)="TrySearch()" style="margin-bottom: 2cm;">
-<div class="card" id="m_c" style="background-image: url(../assets/img/depositphotos_7164275-stock-illustration-summer.jpg)">
-  <h2 id="ct_tag"><b>City</b></h2>
-  <p style="margin-bottom: .75cm;">Weather Report</p> 
-  <h4 id="cnd_tag"><b>Weather</b></h4>
-  <table style="margin-left: 1cm; margin-top: .75cm;">
-    <tr>
-      <td>Temerature:</td>
-      <td id="te"></td>
-    </tr>
-    <tr>
-      <td>Max Temprature:</td>
-      <td id="mate"></td>
-    </tr>
-    <tr>
-      <td>Min Temperature:</td>
-      <td id="mite"></td>
-    </tr>
-    <tr>
-      <td>Humidity:</td>
-      <td id="hu"></td>
-    </tr>
-  </table>
-</div>
-</div>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 
 
 <router-outlet></router-outlet>

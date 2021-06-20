@@ -1,59 +1,121 @@
 import { Component } from '@angular/core';
-import { GetApiService } from './get-api.service'
+import { GetApiService } from './get-api.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'weather-app';
-  address = '';
-  constructor( private api:GetApiService){
+  address =
+    'http://api.openweathermap.org/data/2.5/weather?q=' +
+    'udaipur' +
+    '&appid=347d8d435a0c2efda2191594ca0b39bd';
+  constructor(private api: GetApiService) {}
 
+  date = new Date();
+  digit = this.date.getDate();
+  month = this.date.toLocaleString('default', { month: 'short' });
+  year = this.date.getFullYear();
+
+  city: string;
+  country: string;
+  condition: string;
+  temperature: string;
+  humidity: string;
+  visibility: string;
+  pressure: string;
+  wind: string;
+
+  ngOnInit() {
+    this.api.GetAddress(this.address);
+    this.api.apiCall().subscribe((data) => {
+      this.condition = data['weather']['0']['main'];
+      this.country = data['sys']['country'];
+      this.city = data['name'];
+      var temp = data['main']['temp'] - 273.15;
+      this.temperature = temp.toFixed(1);
+      this.humidity = data['main']['humidity'] + '%';
+      var vis = data['visibility'] / 1000;
+      this.visibility = vis.toFixed(1) + ' Km';
+      this.pressure = data['main']['pressure'] + ' hPa';
+      var speed = data['wind']['speed'] * (18 / 5);
+      this.wind = speed.toFixed(2) + ' km/h';
+
+      var icon = <HTMLImageElement>document.getElementById('w_icon');
+      switch (this.condition) {
+        case 'Clouds':
+          icon.src = 'assets/img/27.png';
+          break;
+        case 'Clear':
+          icon.src = 'assets/img/26.png';
+          break;
+        case 'Haze':
+          icon.src = 'assets/img/18.png';
+          break;
+        case 'Rain':
+          icon.src = 'assets/img/7.png';
+          break;
+        case 'Drizzle':
+          icon.src = 'assets/img/8.png';
+          break;
+        case 'Mist':
+          icon.src = 'assets/img/4.png';
+          break;
+        default:
+          icon.src = 'assets/img/26.png';
+          break;
+      }
+    });
   }
 
-  TrySearch(){
-    console.log('Pressed');
+  TrySearch() {
     var one = <HTMLInputElement>document.getElementById('one');
     var str = one.value.toLowerCase();
-    this.address = 'http://api.openweathermap.org/data/2.5/weather?q='+ str + '&appid=347d8d435a0c2efda2191594ca0b39bd'
-    console.log(this.address);
+    this.address =
+      'http://api.openweathermap.org/data/2.5/weather?q=' +
+      str +
+      '&appid=347d8d435a0c2efda2191594ca0b39bd';
+
     this.api.GetAddress(this.address);
-    this.api.apiCall().subscribe((data)=>{
-      console.warn("getdata",data);
+    this.api.apiCall().subscribe((data) => {
+      this.condition = data['weather']['0']['main'];
+      this.country = data['sys']['country'];
+      this.city = data['name'];
       var temp = data['main']['temp'] - 273.15;
-      var tempma = data['main']['temp_max'] - 273.15;
-      var tempmi = data['main']['temp_min'] - 273.15;
-      document.getElementById('te').innerText = temp.toFixed(1).toString() + ' C' ;
-      document.getElementById('mate').innerText = tempma.toFixed(1).toString() + ' C' ;
-      document.getElementById('mite').innerText = tempmi.toFixed(1).toString() + ' C' ;
-      document.getElementById('hu').innerText = data['main']['humidity'];
-      var city = data['name']+', '+ data['sys']['country']
-      document.getElementById('ct_tag').innerText = city;
-      var condition = data['weather']['0']['main']
-      document.getElementById('cnd_tag').innerText = condition;
-      var card = document.getElementById('m_c');
-      if(condition == 'Haze')
-      {
-        card.style.backgroundImage = "url('../assets/img/SOUTHEASTASIA-HAZE_1609_1568598751.jpg')";
-      } 
-      else if (condition=='Clouds')
-      {
-        card.style.backgroundImage = "url('../assets/img/ab000f469819dd7ef2a7e427e15305ff.jpg')";
+      this.temperature = temp.toFixed(1);
+      this.humidity = data['main']['humidity'] + '%';
+      var vis = data['visibility'] / 1000;
+      this.visibility = vis.toFixed(1) + ' Km';
+      this.pressure = data['main']['pressure'] + ' hPa';
+      var speed = data['wind']['speed'] * (18 / 5);
+      this.wind = speed.toFixed(2) + ' km/h';
+
+      var icon = <HTMLImageElement>document.getElementById('w_icon');
+      switch (this.condition) {
+        case 'Clouds':
+          icon.src = 'assets/img/27.png';
+          break;
+        case 'Clear':
+          icon.src = 'assets/img/26.png';
+          break;
+        case 'Haze':
+          icon.src = 'assets/img/18.png';
+          break;
+        case 'Rain':
+          icon.src = 'assets/img/7.png';
+          break;
+        case 'Drizzle':
+          icon.src = 'assets/img/8.png';
+          break;
+        case 'Mist':
+          icon.src = 'assets/img/4.png';
+          break;
+        default:
+          icon.src = 'assets/img/26.png';
+          break;
       }
-      else if (condition=='Clear')
-      {
-        card.style.backgroundImage = "url('../assets/img/depositphotos_7164275-stock-illustration-summer.jpg')";
-      }
-      else if (condition=='Rain')
-      {
-        card.style.backgroundImage = "url('../assets/img/rain-644x429.jpg')";
-      }
-      else if (condition=='Drizzle')
-      {
-        card.style.backgroundImage = "url('../assets/img/Weather-update-Drizzle-in-many-areas-of-Delhi-NCR-Haryana-and-Rajasthan-also-expected-to-rain.jpg')";
-      }
-    })
+    });
   }
 }
