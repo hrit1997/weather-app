@@ -143,14 +143,17 @@
               display: flex;
               flex-direction: column;
               width: 50%;
+              height: 60px;
+              text-align: center;
 
               &__svg {
-                margin-left: 64px;
+                margin-left: 45%;
                 width: 16px;
                 height: 16px;
               }
 
               &__value {
+                margin-top: 5px;
                 font-size: 14px;
                 color: #f6f6f6;
               }
@@ -204,7 +207,7 @@
         padding: 15px !important;
 
         .world {
-          height: 32vh !important;
+          height: 30vh !important;
         }
 
         .weather-icon {
