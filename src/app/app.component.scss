@@ -194,7 +194,7 @@
 
     .content {
       width: 100% !important;
-      height: 600px !important;
+      height: calc(100vh - 40px) !important;
       padding: 0 !important;
 
       .box {
