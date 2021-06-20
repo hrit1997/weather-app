@@ -9,7 +9,7 @@ import { GetApiService } from './get-api.service';
 export class AppComponent {
   title = 'weather-app';
   address =
-    'http://api.openweathermap.org/data/2.5/weather?q=' +
+    'https://api.openweathermap.org/data/2.5/weather?q=' +
     'udaipur' +
     '&appid=347d8d435a0c2efda2191594ca0b39bd';
   constructor(private api: GetApiService) {}
@@ -74,7 +74,7 @@ export class AppComponent {
     var one = <HTMLInputElement>document.getElementById('one');
     var str = one.value.toLowerCase();
     this.address =
-      'http://api.openweathermap.org/data/2.5/weather?q=' +
+      'https://api.openweathermap.org/data/2.5/weather?q=' +
       str +
       '&appid=347d8d435a0c2efda2191594ca0b39bd';
 
