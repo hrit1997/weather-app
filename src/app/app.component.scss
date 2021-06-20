@@ -132,6 +132,7 @@
           border-radius: 15px;
           background-color: #282828;
           padding: 20px;
+          margin-top: 20px;
 
           .row {
             display: flex;
@@ -203,15 +204,16 @@
         padding: 15px !important;
 
         .world {
-          height: 35vh !important;
+          height: 32vh !important;
         }
 
         .weather-icon {
-          margin-top: -200px !important;
+          margin-top: -220px !important;
         }
 
         .weather {
           &__detail {
+            margin-top: 20px;
             height: 25vh !important;
           }
         }
